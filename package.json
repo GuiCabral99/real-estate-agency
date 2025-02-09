@@ -5,18 +5,26 @@
   "author": "Guilherme Cabral <gui.cabral7641@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "next dev"
+    "dev": "yarn services:up && next dev",
+    "database:migrate": "yarn pg-migrate --migrations-dir infra/database/migrations",
+    "services:up": "docker compose --file infra/compose.yaml up -d",
+    "services:down": "docker compose --file infra/compose.yaml down",
+    "test": "vitest --no-file-parallelism"
   },
   "dependencies": {
     "next": "15.1.6",
-    "prettier": "3.4.2",
+    "pg": "^8.13.1",
     "react": "19.0.0",
     "react-dom": "19.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.13.1",
+    "@types/pg": "^8.11.11",
     "@types/react": "19.0.0",
     "@types/react-dom": "19.0.0",
+    "dotenv": "^16.4.7",
+    "node-pg-migrate": "^7.9.1",
+    "prettier": "^3.5.0",
     "typescript": "5.7.2",
     "vitest": "3.0.5"
   }
