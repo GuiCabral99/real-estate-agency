@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "yarn services:up && next dev",
-    "database:migrate": "yarn pg-migrate --migrations-dir infra/database/migrations",
+    "migration:create": "node-pg-migrate --migrations-dir infra/database/migrations create",
+    "migration:up": "node-pg-migrate --migrations-dir infra/database/migrations --envPath .env.development up",
     "services:up": "docker compose --file infra/compose.yaml up -d",
     "services:down": "docker compose --file infra/compose.yaml down",
     "test": "vitest --no-file-parallelism"
