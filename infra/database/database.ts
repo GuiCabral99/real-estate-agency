@@ -11,5 +11,5 @@ const pool = new Pool({
 
 export default async function query(queryObject: string, params?: any[]) {
   const result = await pool.query(queryObject, params);
-  return result.rows;
+  return result;
 }
