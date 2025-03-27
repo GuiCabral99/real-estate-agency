@@ -6,12 +6,16 @@ import {
 } from "../../../../services/property";
 import { Property } from "../../../../types/property";
 
-export async function GET(_: Request, { params }: { params: { id: number } }) {
+export async function GET(
+  _: Request,
+  { params }: { params: Promise<{ id: number }> },
+) {
+  const { id } = await params;
   try {
-    const property = await getPropertyById(Number(params.id));
+    const property = await getPropertyById(Number(id));
     if (!property)
       return NextResponse.json(
-        { error: "Propriedade não encontrada" },
+        { error: "Property not found." },
         { status: 404 },
       );
 
@@ -35,7 +39,7 @@ export async function PATCH(
 
     if (!updatedProperty)
       return NextResponse.json(
-        { error: "Propriedade não encontrada" },
+        { error: "Property not found." },
         { status: 404 },
       );
 
@@ -50,11 +54,14 @@ export async function PATCH(
 
 export async function DELETE(
   _: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
+  const { id } = await params;
   try {
-    await deleteProperty(Number(params.id));
-    return NextResponse.json({ message: "Propriedade removida com sucesso." });
+    await deleteProperty(Number(id));
+    return NextResponse.json({
+      message: "Property has been successfully removed.",
+    });
   } catch (error) {
     return NextResponse.json(
       { error: (error as Error).message },

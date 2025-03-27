@@ -85,5 +85,10 @@ export async function updateProperty(
 
 export async function deleteProperty(id: number): Promise<{ message: string }> {
   await query("DELETE FROM properties WHERE id = $1", [id]);
-  return { message: "Propriedade removida com sucesso." };
+  return { message: "Property have been removed." };
+}
+
+export async function deleteAllProperties() {
+  await query("DELETE FROM properties");
+  return { message: "All properties have been removed." };
 }
